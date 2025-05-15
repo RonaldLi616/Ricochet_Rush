@@ -4,9 +4,42 @@ public class Ball : MonoBehaviour
 {
     // Valuables
     #region
-    private Rigidbody2D rb;
+    
     private Vector3 lastVelocity;
     private int value = 0;
+
+    
+    #endregion
+
+    // Component
+    #region 
+    private Rigidbody2D rb;
+
+    // PhysicsMaterial2D
+    #region 
+    private PhysicsMaterial2D pm;
+    private void SetPhysicsMaterial()
+    {
+        pm = rb.sharedMaterial;
+        if(pm == null)
+        {
+            Debug.Log(this.gameObject.name + " : Missing PhysicsMaterial!");
+            return;
+        }else
+        {
+            SetFirstBounsiness();
+        }
+    }
+
+    private float firstBounsiness;
+    private void SetFirstBounsiness(){ firstBounsiness = pm.bounciness; }
+    private float GetFirstBousiness(){ return firstBounsiness; }
+    #endregion
+
+    #endregion
+
+    // Reference Object
+    #region 
     public GameObject spawnPoint = null;
     #endregion
 
@@ -15,6 +48,7 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody2D>();
+        SetPhysicsMaterial();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,6 +69,18 @@ public class Ball : MonoBehaviour
         //Debug.Log("Hit!");
         /*Transform transform = this.gameObject.GetComponent<Transform>();
         transform.position = spawnPoint.transform.position;*/
+    }
+    #endregion
+
+    // Change Material
+    #region 
+    public void ResetBousiness()
+    {
+        ChangeBounciness(GetFirstBousiness());
+    }
+    public void ChangeBounciness(float bounciness)
+    {
+        pm.bounciness = bounciness;
     }
     #endregion
 

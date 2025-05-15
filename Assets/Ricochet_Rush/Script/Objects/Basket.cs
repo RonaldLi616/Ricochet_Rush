@@ -14,10 +14,10 @@ public class Basket : MonoBehaviour
         
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         //Debug.Log("Destroy");
         Destroy(collision.gameObject);
-        GameManager.instance.AllBallRemain(2);
+        GameManager.instance.AllBallRemain(5);
     }
 }
