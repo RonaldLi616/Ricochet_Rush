@@ -5,14 +5,14 @@ public class GameManager : MonoBehaviour
 {
     // Valuables
     #region
-    [SerializeField]private GameObject ball;
-    [SerializeField]private GameObject spawnPoint;
-    [SerializeField]private GameObject aimPoint;
-    [SerializeField]private GameObject shooterPivot;
-    [SerializeField]private GameObject traySpawnPoint;
-    [SerializeField]private Text ballRemainText;
-    [SerializeField]private PlayerRecord playerRecord;
-    [SerializeField][Range(6f,10f)]private float shootPower = 10f;
+    [SerializeField] private GameObject ball;
+    [SerializeField] private GameObject spawnPoint;
+    [SerializeField] private GameObject aimPoint;
+    [SerializeField] private GameObject shooterPivot;
+    [SerializeField] private GameObject traySpawnPoint;
+    [SerializeField] private Text ballRemainText;
+    [SerializeField] private PlayerRecord playerRecord;
+    [SerializeField][Range(6f, 10f)] private float shootPower = 10f;
     #endregion
 
     // Instance
@@ -24,12 +24,12 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        else 
+        else
         {
             Destroy(this.gameObject);
         }
     }
-    public static GameManager GetInstance(){ return instance; }
+    public static GameManager GetInstance() { return instance; }
     #endregion
 
     private void Awake()
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         #region 
         SetInstance();
         #endregion
-        
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void OnClickSpaceBar()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Shooter.GetInstance().ShootBall();
         }
@@ -82,12 +82,12 @@ public class GameManager : MonoBehaviour
     #region
     private void AddBallInTray(int num)
     {
-        if(traySpawnPoint == null)
+        if (traySpawnPoint == null)
         {
             Debug.Log("Missing Tray Spawn Point Reference!");
             return;
         }
-        for(int i = 0; i < num; i++)
+        for (int i = 0; i < num; i++)
         {
             GameObject trayBall = Instantiate(ball);
             trayBall.transform.SetPositionAndRotation(DeviatePosition(traySpawnPoint.transform.position), Quaternion.Euler(0f, 0f, 0f));
@@ -111,6 +111,15 @@ public class GameManager : MonoBehaviour
     private void UpdateBallRemains()
     {
         ballRemainText.text = "Ball Remains: " + playerRecord.ballRemains;
+    }
+    #endregion
+
+    // Temporary
+    #region
+    private void Temporary()
+    {
+        Vector3 x = new Vector3();
+        Quest_Studio.Deviation.DeviateVector3(x, x, 2);
     }
     #endregion
 }
