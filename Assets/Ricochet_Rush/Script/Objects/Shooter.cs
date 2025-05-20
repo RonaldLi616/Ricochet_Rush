@@ -1,4 +1,5 @@
 using UnityEngine;
+using Quest_Studio;
 
 public class Shooter : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Shooter : MonoBehaviour
     #region
     // Ball Spawn Point Transform
     #region 
-    [SerializeField]private Transform ballSpawnPointTransform;
+    [SerializeField] private Transform ballSpawnPointTransform;
     public Transform GetBallSpawnPointTransform()
     {
         if(ballSpawnPointTransform == null)
@@ -40,19 +41,21 @@ public class Shooter : MonoBehaviour
     }
     #endregion
 
-    [SerializeField]private GameObject ball;
+    [SerializeField] private GameObject ball;
     #endregion
 
     // Valuables
     #region 
-    [SerializeField][Range(6f, 10f)]private float shootPower = 6f;
+    [SerializeField][Range(6f, 10f)] private float shootPower = 6f;
     private const float MAX_SHOOTPOWER = 10f;
     public void SetShootPower(float percentage)
     {
         shootPower = MAX_SHOOTPOWER * percentage;
     }
 
-    [SerializeField]private float rotationOffset = 90f;
+    [SerializeField] private float rotationOffset = 90f;
+    [SerializeField] private float minDeviate = -0.25f;
+    [SerializeField] private float maxDeviate = 0.25f;
     #endregion
 
     // Component
@@ -94,15 +97,6 @@ public class Shooter : MonoBehaviour
     } 
     #endregion
 
-    // Deviate
-    #region 
-    private float DeviatePower(float power)
-    {
-        float deviation = power * (1 + Random.Range(-0.25f, 0.25f));
-        return deviation;
-    }
-    #endregion
-
     // Shoot Ball
     #region 
     public void ShootBall()
@@ -112,7 +106,7 @@ public class Shooter : MonoBehaviour
         GameManager.GetInstance().DeductBallRemain(1);
         Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
         Vector3 direction = (aimPointHandler.GetAimPointTransform().position - ballSpawnPointTransform.position).normalized;
-        Vector2 newDirection = direction * DeviatePower(shootPower);
+        Vector2 newDirection = direction * Deviation.DeviateNumber(shootPower, minDeviate, maxDeviate);
         rb.AddForce(newDirection, ForceMode2D.Impulse);
     }
     #endregion

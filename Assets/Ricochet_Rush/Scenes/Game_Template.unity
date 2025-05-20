@@ -392,6 +392,7 @@ MonoBehaviour:
   ball: {fileID: 7156440387804682081, guid: 9a0a2a584c9fbc441b339364b5a6939e, type: 3}
   minTransform: {fileID: 1151023307}
   maxTransform: {fileID: 2040522775}
+  spawnBallDelay: 3
 --- !u!4 &129865951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7387792445422608847, guid: 9a0a2a584c9fbc441b339364b5a6939e, type: 3}
@@ -3027,6 +3028,8 @@ MonoBehaviour:
   ball: {fileID: 7156440387804682081, guid: 9a0a2a584c9fbc441b339364b5a6939e, type: 3}
   shootPower: 6
   rotationOffset: 90
+  minDeviate: -0.25
+  maxDeviate: 0.25
 --- !u!4 &1273147866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4688033875455187522, guid: fc7ea1231eadd27488183b0c2bfc52c1, type: 3}

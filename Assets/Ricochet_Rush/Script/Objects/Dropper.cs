@@ -1,4 +1,5 @@
 using UnityEngine;
+using Quest_Studio;
 
 public class Dropper : MonoBehaviour
 {   
@@ -28,46 +29,43 @@ public class Dropper : MonoBehaviour
     #region
     [SerializeField]private Transform minTransform;
     [SerializeField]private Transform maxTransform;
+
+    [SerializeField][Min(0f)] private float spawnBallDelay = 0.1f;
     #endregion
 
     // Method
     #region
-    // Deviate
-    #region 
-    private float DeviatePower(float power)
-    {
-        float deviation = power * (1 + Random.Range(-0.25f, 0.25f));
-        return deviation;
-    }
-    private Vector3 DeviatePosition()
-    {
-        float deviationX = Random.Range(minTransform.position.x, maxTransform.position.x);
-        float deviationY = Random.Range(minTransform.position.y, maxTransform.position.y);
-        Vector3 position = new Vector3(deviationX, deviationY, 0f);
-        return position;
-    }
-    #endregion
-
     // Add Ball In Tray
     #region
     public void AddBallInTray(int num)
     {
-        if((minTransform == null) || (maxTransform == null))
+        if ((minTransform == null) || (maxTransform == null))
         {
             Debug.Log("Missing Dropper Transform Reference!");
             return;
         }
-        if(ball == null)
+        if (ball == null)
         {
             Debug.Log("Missing Ball GameObject Reference!");
             return;
         }
-        for(int i = 0; i < num; i++)
+        for (int i = 0; i < num; i++)
         {
-            GameObject trayBall = Instantiate(ball);
-            trayBall.transform.SetPositionAndRotation(DeviatePosition(), Quaternion.Euler(0f, 0f, 0f));
+            FunctionTimer.Create(() =>
+            {
+                InstantiateBall();
+            }, spawnBallDelay, "AddBallFunctionTimer");
         }
-    } 
+    }
+    #endregion
+
+    // Instantiate Ball
+    #region 
+    private void InstantiateBall()
+    {
+        GameObject trayBall = Instantiate(ball);
+        trayBall.transform.SetPositionAndRotation(Deviation.DeviateVector3(minTransform.position, maxTransform.position, 2), Quaternion.Euler(0f, 0f, 0f));
+    }
     #endregion
 
     #endregion
