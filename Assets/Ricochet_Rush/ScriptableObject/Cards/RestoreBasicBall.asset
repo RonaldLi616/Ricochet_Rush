@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ba2718901d12e40aa1471c41d9d96b, type: 3}
+  m_Name: RestoreBasicBall
+  m_EditorClassIdentifier: 
+  cardValue:
+    cardType: 0
+    ballNumber: 15
+  cardDetail:
+    title: Restore 15 Basic Ball
+    description: Restore 15 Basic Ball
+    thumbnail: {fileID: 0}

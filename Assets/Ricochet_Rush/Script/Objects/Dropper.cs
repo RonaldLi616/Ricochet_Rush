@@ -22,13 +22,14 @@ public class Dropper : MonoBehaviour
 
     // Reference Object
     #region 
-    [SerializeField]private GameObject ball;
+    [SerializeField] private GameObject ball;
+    [SerializeField] private GameObject trayBox;
     #endregion
 
     // Valuables
     #region
-    [SerializeField]private Transform minTransform;
-    [SerializeField]private Transform maxTransform;
+    [SerializeField] private Transform minTransform;
+    [SerializeField] private Transform maxTransform;
 
     [SerializeField][Min(0f)] private float spawnBallDelay = 0.1f;
     #endregion
@@ -64,6 +65,12 @@ public class Dropper : MonoBehaviour
     private void InstantiateBall()
     {
         GameObject trayBall = Instantiate(ball);
+        if (trayBox == null)
+        {
+            Debug.Log("Missing Tray Box Reference!");
+            return;
+        }
+        trayBall.transform.SetParent(trayBox.transform);
         trayBall.transform.SetPositionAndRotation(Deviation.DeviateVector3(minTransform.position, maxTransform.position, 2), Quaternion.Euler(0f, 0f, 0f));
     }
     #endregion

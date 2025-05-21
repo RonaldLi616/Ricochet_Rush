@@ -21,7 +21,7 @@ public class AimPointHandler : MonoBehaviour
 
     // Valuables
     #region 
-    
+
     #endregion
 
     // Component
@@ -33,14 +33,10 @@ public class AimPointHandler : MonoBehaviour
 
     // Mouse
     #region 
-    private Vector3 mousePosition;
-    private void UpdateMousePosition(){ mousePosition = Input.mousePosition; }
-    public Vector3 GetMousePosition(){ return mousePosition; }
+    public Vector3 GetMousePosition(){ return GameManager.GetInstance().GetMousePosition(); }
     public Vector3 GetMouseWorldPosition()
     {
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(GetMousePosition());
-        mouseWorldPosition = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0f);
-        return mouseWorldPosition;
+        return GameManager.GetInstance().GetMouseWorldPosition();
     }
     #endregion
 
@@ -113,7 +109,6 @@ public class AimPointHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateMousePosition();
         UpdateAimPointPosition();
     }
 }
