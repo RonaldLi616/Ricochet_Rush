@@ -36,6 +36,7 @@ public class Card : DraggableObject
     #region 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        SetParentTransform(this.transform.parent);
         GetImage().raycastTarget = false;
     }
 
@@ -45,7 +46,8 @@ public class Card : DraggableObject
     }
 
     public override void OnEndDrag(PointerEventData eventData)
-    { 
+    {
+        this.transform.SetParent(GetParentTransform());
         GetImage().raycastTarget = true;
     }
 

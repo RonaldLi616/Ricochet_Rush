@@ -13,14 +13,21 @@ namespace Quest_Studio
             SetImage();
         }
 
+        // Parent Transform
+        #region 
+        [SerializeField] private Transform parentTransform;
+        public void SetParentTransform(Transform transform) { this.parentTransform = transform; }
+        public Transform GetParentTransform() { return parentTransform; }
+        #endregion
+
         // Image
         #region 
-        [SerializeField] private Image image;
+        [SerializeField] private RawImage image;
         private void SetImage()
         {
-            image = this.GetComponent<Image>();
+            image = this.GetComponent<RawImage>();
         }
-        public Image GetImage()
+        public RawImage GetImage()
         {
             if (image == null) { Debug.Log("Missing Image Reference!"); }
             return image;
@@ -34,6 +41,9 @@ namespace Quest_Studio
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
             Debug.Log("Begin drag");
+            SetParentTransform(this.transform.parent);
+            this.transform.SetParent(this.transform.root);
+            this.transform.SetAsLastSibling();
             GetImage().raycastTarget = false;
         }
 
@@ -46,6 +56,7 @@ namespace Quest_Studio
         public virtual void OnEndDrag(PointerEventData eventData)
         {
             Debug.Log("End drag");
+            this.transform.SetParent(GetParentTransform());
             GetImage().raycastTarget = true;
         }
 
