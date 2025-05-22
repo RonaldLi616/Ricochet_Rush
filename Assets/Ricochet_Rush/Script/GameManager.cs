@@ -28,8 +28,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject shooterPivot;
     [SerializeField] private GameObject traySpawnPoint;
     [SerializeField] private Text ballRemainText;
-    [SerializeField] private PlayerRecord playerRecord;
+    
     [SerializeField][Range(6f, 10f)] private float shootPower = 10f;
+    #endregion
+
+    // Player Record
+    #region 
+    [SerializeField] private PlayerRecord playerRecord;
+    public PlayerRecord GetPlayerRecord()
+    {
+        if (playerRecord == null)
+        {
+            Debug.Log("Missing Player Record Reference!");
+            return null;
+        }
+        return playerRecord;
+    }
+    public void SetBallRemain(int ballCount)
+    {
+        GetPlayerRecord().ballRemains = ballCount;
+        UpdateBallRemains();
+    }
     #endregion
 
     // Component
@@ -67,19 +86,8 @@ public class GameManager : MonoBehaviour
     }
 
     // Update Ball Remain Text
-    #region 
-    public void AllBallRemain(int num)
-    {
-        playerRecord.ballRemains += num;
-        UpdateBallRemains();
-        Dropper.GetInstance().AddBallInTray(num);
-    }
-    public void DeductBallRemain(int num)
-    {
-        playerRecord.ballRemains -= num;
-        UpdateBallRemains();
-    }
-    private void UpdateBallRemains()
+    #region
+    public void UpdateBallRemains()
     {
         ballRemainText.text = "Ball Remains: " + playerRecord.ballRemains;
     }
@@ -88,7 +96,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UpdateBallRemains();
+        
     }
 
     // Update is called once per frame

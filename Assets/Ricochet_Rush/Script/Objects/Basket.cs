@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Basket : MonoBehaviour
 {
+    // Valuable
+    #region 
+    [SerializeField] private int ballNumber = 0;
+    #endregion
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,6 +23,6 @@ public class Basket : MonoBehaviour
     {
         //Debug.Log("Destroy");
         Destroy(collision.gameObject);
-        GameManager.instance.AllBallRemain(5);
+        Dropper.GetInstance().AddBallInTray(ballNumber);
     }
 }

@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 7156440387804682081, guid: 9a0a2a584c9fbc441b339364b5a6939e, type: 3}
+  trayBox: {fileID: 918964830}
   minTransform: {fileID: 1151023307}
   maxTransform: {fileID: 2040522775}
   spawnBallDelay: 0.1
@@ -2166,8 +2167,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 918964831}
+  - component: {fileID: 918964834}
   - component: {fileID: 918964833}
   - component: {fileID: 918964832}
+  - component: {fileID: 918964835}
   m_Layer: 0
   m_Name: Tray Box
   m_TagString: Untagged
@@ -2310,6 +2313,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &918964834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918964830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f89e2f9c6abba4a9d0ab7e2afc6a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balls: []
+--- !u!61 &918964835
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918964830}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -1.8, y: -2.4}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.97, y: 7.05}
+    newSize: {x: 1.1, y: 1.05}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0
 --- !u!1 &931908804
 GameObject:
   m_ObjectHideFlags: 0
@@ -3123,8 +3185,8 @@ MonoBehaviour:
   shooterPivot: {fileID: 1242321506}
   traySpawnPoint: {fileID: 1955586500}
   ballRemainText: {fileID: 1063429715}
-  playerRecord: {fileID: 11400000, guid: 9f0135c802ae7714692ce21b8a69a572, type: 2}
   shootPower: 8.23
+  playerRecord: {fileID: 11400000, guid: 9f0135c802ae7714692ce21b8a69a572, type: 2}
 --- !u!4 &1198318966
 Transform:
   m_ObjectHideFlags: 0
@@ -3471,6 +3533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ca10e695a6eba48a8f0159dd42959d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
   cardInfo: {fileID: 11400000, guid: ce6cc413c379bfb47a0a745fe8ebb300, type: 2}
 --- !u!1 &1513579942
 GameObject:

@@ -42,12 +42,12 @@ public class Dropper : MonoBehaviour
     {
         if ((minTransform == null) || (maxTransform == null))
         {
-            Debug.Log("Missing Dropper Transform Reference!");
+            Debug.Log("Missing Dropper transform reference!");
             return;
         }
         if (ball == null)
         {
-            Debug.Log("Missing Ball GameObject Reference!");
+            Debug.Log("Missing Ball gameObject reference!");
             return;
         }
         for (int i = 0; i < num; i++)
@@ -67,11 +67,18 @@ public class Dropper : MonoBehaviour
         GameObject trayBall = Instantiate(ball);
         if (trayBox == null)
         {
-            Debug.Log("Missing Tray Box Reference!");
+            Debug.Log("Missing Tray Box gameObject reference!");
             return;
         }
         trayBall.transform.SetParent(trayBox.transform);
         trayBall.transform.SetPositionAndRotation(Deviation.DeviateVector3(minTransform.position, maxTransform.position, 2), Quaternion.Euler(0f, 0f, 0f));
+        Ball trayBallB = trayBall.GetComponent<Ball>();
+        if (trayBallB == null)
+        {
+            Debug.Log("Missing Tray Ball script reference!");
+            return;
+        }
+        TrayBox.GetInstance().AddBallInTray(trayBallB);
     }
     #endregion
 

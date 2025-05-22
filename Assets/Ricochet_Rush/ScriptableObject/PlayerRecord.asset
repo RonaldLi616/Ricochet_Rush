@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ecb4e85b2a9d14ba27e2425933f86a, type: 3}
   m_Name: PlayerRecord
   m_EditorClassIdentifier: 
-  ballRemains: 110
+  ballRemains: 3

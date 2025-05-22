@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec7ae303127a144c8f1b3db47c9d2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballNumber: 5
 --- !u!212 &1860443966814696547
 SpriteRenderer:
   m_ObjectHideFlags: 0

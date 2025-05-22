@@ -45,6 +45,45 @@ public class Ball : MonoBehaviour
 
     public Vector3 GetLastVelocity(){ return lastVelocity; }
 
+    // Method
+    #region 
+    // Check Status
+    #region 
+    public enum InTrayStatus
+    {
+        Await,
+        Ready
+    }
+    [SerializeField] private InTrayStatus inTrayStatus = InTrayStatus.Await;
+    public InTrayStatus GetBallInTrayStatus() { return inTrayStatus; }
+
+    private void CheckBallInTrayStatus(Collider2D collision)
+    {
+        TrayBox trayBox = collision.gameObject.GetComponent<TrayBox>();
+        if (trayBox == null)
+        {
+            inTrayStatus = InTrayStatus.Await;
+            return;
+        }
+        inTrayStatus = InTrayStatus.Ready;
+    }
+    #endregion
+
+    #endregion
+
+    // Collision Handler
+    #region
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        CheckBallInTrayStatus(collision);
+    }
+    #endregion
+
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody2D>();
@@ -63,14 +102,7 @@ public class Ball : MonoBehaviour
         lastVelocity = rb.linearVelocity;
     }
 
-    #region
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //Debug.Log("Hit!");
-        /*Transform transform = this.gameObject.GetComponent<Transform>();
-        transform.position = spawnPoint.transform.position;*/
-    }
-    #endregion
+    
 
     // Change Material
     #region 

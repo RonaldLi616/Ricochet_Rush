@@ -7,7 +7,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
     #region 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("Dropped on target");
+        //Debug.Log("Dropped on target");
         GameObject dropped = eventData.pointerDrag;
         Card card = dropped.GetComponent<Card>();
         if (card == null) { return; }

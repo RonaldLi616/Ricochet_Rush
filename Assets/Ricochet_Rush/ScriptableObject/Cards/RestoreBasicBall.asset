@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardValue:
     cardType: 0
-    ballNumber: 15
+    ballNumber: 5
   cardDetail:
     title: Restore 15 Basic Ball
     description: Restore 15 Basic Ball

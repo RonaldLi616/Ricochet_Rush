@@ -101,9 +101,15 @@ public class Shooter : MonoBehaviour
     #region 
     public void ShootBall()
     {
+        bool removeSuccess = TrayBox.GetInstance().RemoveBallInTray();
+        if (!removeSuccess)
+        {
+            Debug.Log("Tray Box remove Ball fail!");
+            return;
+        }
+        
         GameObject newBall = Instantiate(ball);
         newBall.transform.SetPositionAndRotation(ballSpawnPointTransform.position, Quaternion.Euler(0f, 0f, 0f));
-        GameManager.GetInstance().DeductBallRemain(1);
         Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
         Vector3 direction = (aimPointHandler.GetAimPointTransform().position - ballSpawnPointTransform.position).normalized;
         Vector2 newDirection = direction * Deviation.DeviateNumber(shootPower, minDeviate, maxDeviate);
