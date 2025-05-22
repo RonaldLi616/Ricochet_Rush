@@ -1,6 +1,5 @@
 using UnityEngine;
 using Quest_Studio;
-using UnityEngine.Assertions.Must;
 
 public class CardSlot : MonoBehaviour
 {
@@ -56,6 +55,7 @@ public class CardSlot : MonoBehaviour
         {
             card.transform.position = new Vector3(posX, posY, posZ);
         }, 1f, "InsertCardTimer");
+        
     }
     #endregion
 
