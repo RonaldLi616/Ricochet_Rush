@@ -31,7 +31,7 @@ public class Dropper : MonoBehaviour
     [SerializeField] private Transform minTransform;
     [SerializeField] private Transform maxTransform;
 
-    [SerializeField][Min(0f)] private float spawnBallDelay = 0.1f;
+    [SerializeField][Min(0f)] private float spawnBallDelay = 0.5f;
     #endregion
 
     // Method

@@ -12,6 +12,23 @@ public class Card : DraggableObject
     public CardInfo GetCardInfo() { return cardInfo; }
     #endregion
 
+    // Latest Position
+    #region 
+    [SerializeField] private Vector3 latestPosition;
+    private void SetLatestPosition()
+    {
+        latestPosition = this.transform.localPosition;
+    }
+    public Vector3 GetLatestPosition() { return latestPosition; }
+    #endregion
+
+    // In Card Slot
+    #region 
+    private bool InCardSlot = false;
+    public void SetInCardSlot(bool isIn) { InCardSlot = isIn; }
+    public bool GetInCardSlot() { return InCardSlot; }
+    #endregion
+
     #endregion
 
     // Component
@@ -36,12 +53,16 @@ public class Card : DraggableObject
     #region 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        if (InCardSlot) { return; }
         SetParentTransform(this.transform.parent);
+        this.transform.SetParent(this.transform.parent.parent);
+        this.transform.SetAsLastSibling();
         GetImage().raycastTarget = false;
     }
 
     public override void OnDrag(PointerEventData eventData)
     {
+        if (InCardSlot) { return; }
         UpdateCardPosition();
     }
 
@@ -49,6 +70,8 @@ public class Card : DraggableObject
     {
         this.transform.SetParent(GetParentTransform());
         GetImage().raycastTarget = true;
+
+        SetLatestPosition();
     }
 
     #endregion

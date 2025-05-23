@@ -1,9 +1,29 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Quest_Studio;
+using UnityEngine.UI;
 
 public class CardDropArea : DropArea
 {
+    // Valuable
+    #region 
+    // Is Inventory
+    #region 
+    [SerializeField] private bool isInventory;
+    private bool GetIsInventory() { return isInventory; }
+    #endregion
+
+    #endregion
+
+    // Component
+    #region 
+    private void SetComponent()
+    {
+        
+    }
+
+    #endregion
+
     // Drop Handler
     #region 
     public override void OnDrop(PointerEventData eventData)
@@ -13,13 +33,20 @@ public class CardDropArea : DropArea
         if (card == null) { return; }
 
         card.SetParentTransform(this.transform);
-        CardInfo cardInfo = card.GetCardInfo();
-        int ballNumber = cardInfo.GetCardValue().GetBallNumber();
-        Dropper.GetInstance().AddBallInTray(ballNumber);
-
+        if (isInventory) { return; }
+        card.SetInCardSlot(true);
         CardSlot.GetInstance().InsertCard(card);
     }
     #endregion
+
+    private void Awake()
+    {
+        // Set Component
+        #region 
+        SetComponent();
+        #endregion
+
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
