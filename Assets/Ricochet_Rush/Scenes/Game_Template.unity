@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781bc1c43008f9d44bda6813eaca092d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInventory: 0
+  dropAreaType: 0
 --- !u!4 &432074806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4688033875455187522, guid: fc7ea1231eadd27488183b0c2bfc52c1, type: 3}
@@ -2338,6 +2338,8 @@ MonoBehaviour:
   image: {fileID: 0}
   cardInfo: {fileID: 11400000, guid: ce6cc413c379bfb47a0a745fe8ebb300, type: 2}
   latestPosition: {x: 0, y: 0, z: 0}
+  localTem: {x: 0, y: 0, z: 0}
+  worldTem: {x: 0, y: 0, z: 0}
 --- !u!222 &865499510
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2757,7 +2759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781bc1c43008f9d44bda6813eaca092d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInventory: 1
+  dropAreaType: 1
 --- !u!114 &976770339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3736,6 +3738,8 @@ MonoBehaviour:
   image: {fileID: 0}
   cardInfo: {fileID: 11400000, guid: ce6cc413c379bfb47a0a745fe8ebb300, type: 2}
   latestPosition: {x: 0, y: 0, z: 0}
+  localTem: {x: 0, y: 0, z: 0}
+  worldTem: {x: 0, y: 0, z: 0}
 --- !u!114 &1490732359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4962,6 +4966,8 @@ MonoBehaviour:
   image: {fileID: 0}
   cardInfo: {fileID: 11400000, guid: ce6cc413c379bfb47a0a745fe8ebb300, type: 2}
   latestPosition: {x: 0, y: 0, z: 0}
+  localTem: {x: 0, y: 0, z: 0}
+  worldTem: {x: 0, y: 0, z: 0}
 --- !u!222 &2063810422
 CanvasRenderer:
   m_ObjectHideFlags: 0

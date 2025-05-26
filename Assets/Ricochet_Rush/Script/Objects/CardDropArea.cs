@@ -7,10 +7,15 @@ public class CardDropArea : DropArea
 {
     // Valuable
     #region 
-    // Is Inventory
+    // Drop Area Type
     #region 
-    [SerializeField] private bool isInventory;
-    private bool GetIsInventory() { return isInventory; }
+    private enum DropAreaType
+    {
+        CardSlot,
+        Inventory
+    }
+    [SerializeField] private DropAreaType dropAreaType = DropAreaType.Inventory;
+    private DropAreaType GetDropAreaType() { return dropAreaType; }
     #endregion
 
     #endregion
@@ -33,9 +38,19 @@ public class CardDropArea : DropArea
         if (card == null) { return; }
 
         card.SetParentTransform(this.transform);
-        if (isInventory) { return; }
-        card.SetInCardSlot(true);
-        CardSlot.GetInstance().InsertCard(card);
+        switch (GetDropAreaType())
+        {
+            case DropAreaType.CardSlot:
+                float posX = this.transform.position.x + 500f;
+                float posY = this.transform.position.y;
+                float posZ = this.transform.position.z;
+                card.InsertCard(90f, 1f, new Vector3(posX, posY, posZ), 0.5f, 1f);
+                break;
+
+            case DropAreaType.Inventory:
+                card.SetCardStatus(Card.CardStatus.Inventory);
+                break;
+        }
     }
     #endregion
 
