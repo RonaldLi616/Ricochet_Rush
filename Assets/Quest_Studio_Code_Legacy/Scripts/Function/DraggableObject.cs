@@ -15,14 +15,14 @@ namespace Quest_Studio
 
         // Parent Transform
         #region 
-        [SerializeField] private Transform parentTransform;
+        private Transform parentTransform;
         public void SetParentTransform(Transform transform) { this.parentTransform = transform; }
         public Transform GetParentTransform() { return parentTransform; }
         #endregion
 
         // Image
         #region 
-        [SerializeField] private RawImage image;
+        private RawImage image;
         private void SetImage()
         {
             image = this.GetComponent<RawImage>();
@@ -32,6 +32,7 @@ namespace Quest_Studio
             if (image == null) { Debug.Log("Missing Image Reference!"); }
             return image;
         }
+        public void SetMaskableActive(bool isActive) { GetImage().maskable = isActive; }
         #endregion
 
         #endregion

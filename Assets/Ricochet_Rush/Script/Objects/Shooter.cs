@@ -20,12 +20,6 @@ public class Shooter : MonoBehaviour
     public static Shooter GetInstance(){ return instance; }
     #endregion
 
-    // Reference Instance
-    #region 
-    private AimPointHandler aimPointHandler;
-    private void SetAimPointHandler(){ this.aimPointHandler = AimPointHandler.GetInstance(); }
-    #endregion
-
     // Reference Object
     #region
     // Ball Spawn Point Transform
@@ -70,7 +64,7 @@ public class Shooter : MonoBehaviour
     private Transform shooterTransform;
     private void SetShooterTransform()
     {
-        shooterTransform = this.transform;
+        shooterTransform = this.transform.parent.transform;
     }
     private Transform GetShooterTransform(){ return shooterTransform; }
     #endregion
@@ -86,7 +80,7 @@ public class Shooter : MonoBehaviour
         //Vector3 mousePosition = Input.mousePosition;
         //Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         Vector2 pivotVector = new Vector2(GetShooterTransform().position.x, GetShooterTransform().transform.position.y);
-        Vector2 aimPointVector = new Vector2(aimPointHandler.GetAimPointTransform().position.x, aimPointHandler.GetAimPointTransform().position.y);
+        Vector2 aimPointVector = new Vector2(AimPointHandler.GetInstance().GetAimPointTransform().position.x, AimPointHandler.GetInstance().GetAimPointTransform().position.y);
         Vector3 direction = aimPointVector - pivotVector;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + rotationOffset;
@@ -101,8 +95,7 @@ public class Shooter : MonoBehaviour
     #region 
     public void ShootBall()
     {
-        bool removeSuccess = TrayBox.GetInstance().RemoveBallInTray();
-        if (!removeSuccess)
+        if (!TrayBox.GetInstance().RemoveBallInTray())
         {
             Debug.Log("Tray Box remove Ball fail!");
             return;
@@ -111,7 +104,7 @@ public class Shooter : MonoBehaviour
         GameObject newBall = Instantiate(ball);
         newBall.transform.SetPositionAndRotation(ballSpawnPointTransform.position, Quaternion.Euler(0f, 0f, 0f));
         Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
-        Vector3 direction = (aimPointHandler.GetAimPointTransform().position - ballSpawnPointTransform.position).normalized;
+        Vector3 direction = (AimPointHandler.GetInstance().GetAimPointTransform().position - ballSpawnPointTransform.position).normalized;
         Vector2 newDirection = direction * Deviation.DeviateNumber(shootPower, minDeviate, maxDeviate);
         rb.AddForce(newDirection, ForceMode2D.Impulse);
     }
@@ -124,11 +117,6 @@ public class Shooter : MonoBehaviour
         // Instance
         #region 
         SetInstance();
-        #endregion
-
-        // Reference Instance
-        #region 
-        SetAimPointHandler();
         #endregion
 
         // Set Component

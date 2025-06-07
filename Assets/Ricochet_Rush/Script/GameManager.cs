@@ -1,3 +1,4 @@
+using Quest_Studio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,16 @@ public class GameManager : MonoBehaviour
         }
     }
     public static GameManager GetInstance() { return instance; }
+    #endregion
+
+    // Main Canvas
+    #region 
+    [SerializeField] private Canvas mainCanvas;
+    public Canvas GetMainCanvas()
+    {
+        if (mainCanvas == null) { Debug.Log("Missing Main Canvas Reference!"); }
+        return mainCanvas;
+    }
     #endregion
 
     // Valuables
@@ -61,7 +72,7 @@ public class GameManager : MonoBehaviour
     public Vector3 GetMouseWorldPosition()
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(GetMousePosition());
-        mouseWorldPosition = new Vector3(mouseWorldPosition.x, mouseWorldPosition.y, 0f);
+        mouseWorldPosition.z = 0f;
         return mouseWorldPosition;
     }
     #endregion
@@ -108,6 +119,13 @@ public class GameManager : MonoBehaviour
 
     // Temporary
     #region
+    [Header("Components")]
+    [SerializeField] private AutoResizeScrollContent autoResizeScrollContent;
+    public void ResizeScrollContent()
+    {
+        autoResizeScrollContent.ResizeScrollContent();
+        BlankCard.GetInstance().SetToLastSibling();
+    }
     private void Temporary()
     {
         Vector3 x = new Vector3();

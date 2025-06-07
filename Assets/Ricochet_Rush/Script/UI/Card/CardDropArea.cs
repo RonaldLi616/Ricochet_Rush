@@ -41,10 +41,7 @@ public class CardDropArea : DropArea
         switch (GetDropAreaType())
         {
             case DropAreaType.CardSlot:
-                float posX = this.transform.position.x + 500f;
-                float posY = this.transform.position.y;
-                float posZ = this.transform.position.z;
-                card.InsertCard(90f, 1f, new Vector3(posX, posY, posZ), 0.5f, 1f);
+                card.SetCardStatus(Card.CardStatus.InsertCard);
                 break;
 
             case DropAreaType.Inventory:
