@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject shooterPivot;
     [SerializeField] private GameObject traySpawnPoint;
     [SerializeField] private Text ballRemainText;
-    
+
     [SerializeField][Range(6f, 10f)] private float shootPower = 10f;
     #endregion
 
@@ -67,8 +67,8 @@ public class GameManager : MonoBehaviour
     // Mouse
     #region 
     private Vector3 mousePosition;
-    private void UpdateMousePosition(){ mousePosition = Input.mousePosition; }
-    public Vector3 GetMousePosition(){ return mousePosition; }
+    private void UpdateMousePosition() { mousePosition = Input.mousePosition; }
+    public Vector3 GetMousePosition() { return mousePosition; }
     public Vector3 GetMouseWorldPosition()
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(GetMousePosition());
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateMousePosition();
         OnClickSpaceBar();
+        ResetGame();
     }
 
     // Temporary
@@ -130,6 +131,14 @@ public class GameManager : MonoBehaviour
     {
         Vector3 x = new Vector3();
         Quest_Studio.Deviation.DeviateVector3(x, x, 2);
+    }
+
+    private void ResetGame()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RicochetRush_SceneLoader.Load(RicochetRush_SceneLoader.Scene.TestingGround);
+        }
     }
     #endregion
 }
