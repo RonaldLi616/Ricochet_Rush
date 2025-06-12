@@ -20,8 +20,8 @@ public class Mannequin : Enemy
     // Component
     #region 
     public override void SetComponent()
-    { 
-        
+    {
+
     }
 
     [SerializeField] private GameObject animateTarget;
@@ -44,7 +44,7 @@ public class Mannequin : Enemy
         int result = currentHealth;
         if (number <= 0) { return; }
         result += number;
-        if (result >= maxHealth){ result = maxHealth; }
+        if (result >= maxHealth) { result = maxHealth; }
 
         // Hash Table
         #region 
@@ -62,7 +62,7 @@ public class Mannequin : Enemy
         #endregion
 
         iTween.ValueTo(this.gameObject, updateSliderValueHash);
-        
+
         base.currentHealth = result;
     }
 
@@ -72,7 +72,7 @@ public class Mannequin : Enemy
         int result = base.currentHealth;
         if (number <= 0 || base.currentHealth == 0) { return; }
         result -= number;
-        if (result <= 0){ result = 0; }
+        if (result <= 0) { result = 0; }
 
         // Hash Table
         #region 
@@ -103,10 +103,10 @@ public class Mannequin : Enemy
             GetIndicatorBar().GetIndicatorText().enabled = false;
         }
         else if (currentHealth == maxHealth)
-        { 
+        {
             GetIndicatorBar().GetIndicatorText().enabled = true;
         }
-        
+
     }
     #endregion
 
@@ -145,14 +145,14 @@ public class Mannequin : Enemy
         onHitMannequinHash.Add("space", Space.Self);
         onHitMannequinHash.Add("time", 1f);
         onHitMannequinHash.Add("easetype", iTween.EaseType.easeInOutBounce);
-        
+
         #endregion
 
         if (currentHealth > 0)
         {
             onHitMannequinHash.Add("name", "Mannequin_" + animateTarget.GetInstanceID() + "_OnHit_PunchPosition");
             onHitMannequinHash.Add("z", 180f);
-            onHitMannequinHash.Add("oncomplete","OnCompleteAnimation_Mannequin");
+            onHitMannequinHash.Add("oncomplete", "OnCompleteAnimation_Mannequin");
             onHitMannequinHash.Add("oncompletetarget", this.gameObject);
             iTween.PunchRotation(animateTarget, onHitMannequinHash);
         }
@@ -161,12 +161,12 @@ public class Mannequin : Enemy
             onHitMannequinHash.Add("name", "Mannequin_" + animateTarget.GetInstanceID() + "_OnHit_PunchScale");
             onHitMannequinHash.Add("x", 2f);
             onHitMannequinHash.Add("y", 2f);
-            onHitMannequinHash.Add("onstart","OnStartDestroyAnimation_Mannequin");
+            onHitMannequinHash.Add("onstart", "OnStartDestroyAnimation_Mannequin");
             onHitMannequinHash.Add("onstarttarget", this.gameObject);
             iTween.PunchScale(animateTarget, onHitMannequinHash);
-            
+
         }
-        
+
     }
 
     private void OnCompleteAnimation_Mannequin()
@@ -188,7 +188,7 @@ public class Mannequin : Enemy
         onDestroyMannequinHash.Add("y", 0f);
         onDestroyMannequinHash.Add("time", 1f);
         onDestroyMannequinHash.Add("easetype", iTween.EaseType.easeOutSine);
-        onDestroyMannequinHash.Add("oncomplete","OnCompleteResetAnimation_Mannequin");
+        onDestroyMannequinHash.Add("oncomplete", "OnCompleteResetAnimation_Mannequin");
         onDestroyMannequinHash.Add("oncompletetarget", this.gameObject);
 
         #endregion
@@ -199,7 +199,7 @@ public class Mannequin : Enemy
     // Reset Animation
     #region 
     private void OnCompleteResetAnimation_Mannequin()
-    { 
+    {
         // Hash Table
         #region 
         Hashtable onDestroyMannequinHash = new Hashtable();
@@ -208,7 +208,7 @@ public class Mannequin : Enemy
         onDestroyMannequinHash.Add("y", 1f);
         onDestroyMannequinHash.Add("time", 1f);
         onDestroyMannequinHash.Add("easetype", iTween.EaseType.easeOutSine);
-        onDestroyMannequinHash.Add("oncomplete","OnCompleteAnimation_Mannequin");
+        onDestroyMannequinHash.Add("oncomplete", "OnCompleteAnimation_Mannequin");
         onDestroyMannequinHash.Add("oncompletetarget", this.gameObject);
 
         #endregion
@@ -230,23 +230,19 @@ public class Mannequin : Enemy
         RemoveHealth(1);
     }
     #endregion
+
+    public void OnHitMannequin()
+    {
+        if (isCooldown) { return; }
+        OnHitAnimation();
+        RemoveHealth(1);
+
+    }
+
     public override void Awake()
     {
         base.Awake();
 
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public override void Start()
-    {
-        base.Start();
-
-    }
-
-    // Update is called once per frame
-    public override void Update()
-    {
-        base.Update();
-
-    }
+    
 }
