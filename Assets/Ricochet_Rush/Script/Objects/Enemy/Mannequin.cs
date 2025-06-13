@@ -24,7 +24,6 @@ public class Mannequin : Enemy
 
     }
 
-    [SerializeField] private GameObject animateTarget;
     #endregion
 
     // Method
@@ -123,7 +122,6 @@ public class Mannequin : Enemy
     #region
     public override void DestroySelf()
     {
-        //Destroy(this.gameObject);
         AddHealth(maxHealth);
         UpdateHealthBar();
     }
@@ -133,39 +131,28 @@ public class Mannequin : Enemy
 
     // Animation
     #region
+    [SerializeField] private GameObject torsoPointGO;
+    [SerializeField] private Transform refTransform; 
     // On Hit Animation
     #region 
-    private void OnHitAnimation()
+    private void OnHitAnimation(Vector2 magnitude)
     {
         isCooldown = true;
 
         // Hash Table
         #region 
         Hashtable onHitMannequinHash = new Hashtable();
+        onHitMannequinHash.Add("name", "Mannequin_" + torsoPointGO.gameObject.GetInstanceID() + "_OnHit");
+        onHitMannequinHash.Add("x", magnitude.x);
+        onHitMannequinHash.Add("y", magnitude.y);
         onHitMannequinHash.Add("space", Space.Self);
         onHitMannequinHash.Add("time", 1f);
-        onHitMannequinHash.Add("easetype", iTween.EaseType.easeInOutBounce);
+        onHitMannequinHash.Add("oncomplete", "OnCompleteAnimation_Mannequin");
+        onHitMannequinHash.Add("oncompletetarget", this.gameObject);
 
         #endregion
 
-        if (currentHealth > 0)
-        {
-            onHitMannequinHash.Add("name", "Mannequin_" + animateTarget.GetInstanceID() + "_OnHit_PunchPosition");
-            onHitMannequinHash.Add("z", 180f);
-            onHitMannequinHash.Add("oncomplete", "OnCompleteAnimation_Mannequin");
-            onHitMannequinHash.Add("oncompletetarget", this.gameObject);
-            iTween.PunchRotation(animateTarget, onHitMannequinHash);
-        }
-        else
-        {
-            onHitMannequinHash.Add("name", "Mannequin_" + animateTarget.GetInstanceID() + "_OnHit_PunchScale");
-            onHitMannequinHash.Add("x", 2f);
-            onHitMannequinHash.Add("y", 2f);
-            onHitMannequinHash.Add("onstart", "OnStartDestroyAnimation_Mannequin");
-            onHitMannequinHash.Add("onstarttarget", this.gameObject);
-            iTween.PunchScale(animateTarget, onHitMannequinHash);
-
-        }
+        iTween.PunchPosition(torsoPointGO, onHitMannequinHash);
 
     }
 
@@ -176,65 +163,12 @@ public class Mannequin : Enemy
     }
     #endregion
 
-    // Destroy Animation
-    #region 
-    private void OnStartDestroyAnimation_Mannequin()
-    {
-        // Hash Table
-        #region 
-        Hashtable onDestroyMannequinHash = new Hashtable();
-        onDestroyMannequinHash.Add("name", "Mannequin_" + animateTarget.GetInstanceID() + "_OnStartDestroy_ScaleTo");
-        onDestroyMannequinHash.Add("x", 0f);
-        onDestroyMannequinHash.Add("y", 0f);
-        onDestroyMannequinHash.Add("time", 1f);
-        onDestroyMannequinHash.Add("easetype", iTween.EaseType.easeOutSine);
-        onDestroyMannequinHash.Add("oncomplete", "OnCompleteResetAnimation_Mannequin");
-        onDestroyMannequinHash.Add("oncompletetarget", this.gameObject);
-
-        #endregion
-        iTween.ScaleTo(this.gameObject, onDestroyMannequinHash);
-    }
     #endregion
 
-    // Reset Animation
-    #region 
-    private void OnCompleteResetAnimation_Mannequin()
-    {
-        // Hash Table
-        #region 
-        Hashtable onDestroyMannequinHash = new Hashtable();
-        onDestroyMannequinHash.Add("name", "Mannequin_" + animateTarget.GetInstanceID() + "_OnCompleteReset_ScaleTo");
-        onDestroyMannequinHash.Add("x", 1f);
-        onDestroyMannequinHash.Add("y", 1f);
-        onDestroyMannequinHash.Add("time", 1f);
-        onDestroyMannequinHash.Add("easetype", iTween.EaseType.easeOutSine);
-        onDestroyMannequinHash.Add("oncomplete", "OnCompleteAnimation_Mannequin");
-        onDestroyMannequinHash.Add("oncompletetarget", this.gameObject);
-
-        #endregion
-        iTween.ScaleTo(this.gameObject, onDestroyMannequinHash);
-    }
-    #endregion
-
-    #endregion
-
-    // Collision Handler
-    #region 
-    public override void OnCollisionEnter2D(Collision2D collision)
-    {
-        Ball ball = collision.gameObject.GetComponent<Ball>();
-        if (ball == null) { return; }
-
-        if (isCooldown) { return; }
-        OnHitAnimation();
-        RemoveHealth(1);
-    }
-    #endregion
-
-    public void OnHitMannequin()
+    public void OnHitMannequin(Vector2 magnitude)
     {
         if (isCooldown) { return; }
-        OnHitAnimation();
+        OnHitAnimation(magnitude);
         RemoveHealth(1);
 
     }
