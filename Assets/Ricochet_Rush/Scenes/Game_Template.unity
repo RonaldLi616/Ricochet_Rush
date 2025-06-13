@@ -6650,14 +6650,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2405540277127040705, guid: db8c5b0bd541c194bb0ff792f3658449, type: 3}
-      propertyPath: alpha
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 5179224297969105189, guid: db8c5b0bd541c194bb0ff792f3658449, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7050025732282588331, guid: db8c5b0bd541c194bb0ff792f3658449, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
