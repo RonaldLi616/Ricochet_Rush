@@ -132,6 +132,14 @@ public class Temporary : MonoBehaviour
         {
             Debug.Log("Fade");
             OnCompleteFade_Mannequin();
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("Testing");
+            FunctionTimer.Create(() => { Debug.Log("Testing_1f"); }, 1f, "Testing");
+            
         }
     }
 }

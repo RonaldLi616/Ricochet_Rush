@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
+  inTrayStatus: 0
 --- !u!212 &1177443452779590024
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,8 +90,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1444112869
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -461876170754940978, guid: 75ec8aee3fce0f6418877ea91513c40e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

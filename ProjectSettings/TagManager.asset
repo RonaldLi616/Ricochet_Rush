@@ -45,5 +45,20 @@ TagManager:
   - name: Background
     uniqueID: 2366317279
     locked: 0
+  - name: Level
+    uniqueID: 431961829
+    locked: 0
+  - name: Obstacle
+    uniqueID: 3377242659
+    locked: 0
+  - name: Ball
+    uniqueID: 1444112869
+    locked: 0
+  - name: Cover
+    uniqueID: 1864777531
+    locked: 0
+  - name: UI
+    uniqueID: 4093941967
+    locked: 0
   m_RenderingLayers:
   - Default
