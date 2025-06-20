@@ -1,12 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 using System;
 using System.Collections;
-using Quest_Studio;
 
-public class Mannequin : Enemy
-{
+public class Slime : Enemy
+{   
     // Valuable
     #region 
     public override void SetValuable()
@@ -15,15 +12,6 @@ public class Mannequin : Enemy
     }
 
     private bool isCooldown = false;
-    #endregion
-
-    // Component
-    #region 
-    public override void SetComponent()
-    {
-
-    }
-
     #endregion
 
     // Method
@@ -55,7 +43,7 @@ public class Mannequin : Enemy
         updateSliderValueHash.Add("easetype", iTween.EaseType.easeOutSine);
         updateSliderValueHash.Add("onupdate", "OnUpdateHealthBar");
         updateSliderValueHash.Add("onupdatetarget", this.gameObject);
-        updateSliderValueHash.Add("oncomplete", "OnCompleteUpdateHealth_Mannequin");
+        updateSliderValueHash.Add("oncomplete", "OnCompleteUpdateHealth_Slime");
         updateSliderValueHash.Add("oncompletetarget", this.gameObject);
 
         #endregion
@@ -83,7 +71,7 @@ public class Mannequin : Enemy
         updateSliderValueHash.Add("easetype", iTween.EaseType.easeOutSine);
         updateSliderValueHash.Add("onupdate", "OnUpdateHealthBar");
         updateSliderValueHash.Add("onupdatetarget", this.gameObject);
-        updateSliderValueHash.Add("oncomplete", "OnCompleteUpdateHealth_Mannequin");
+        updateSliderValueHash.Add("oncomplete", "OnCompleteUpdateHealth_Slime");
         updateSliderValueHash.Add("oncompletetarget", this.gameObject);
 
         #endregion
@@ -131,8 +119,7 @@ public class Mannequin : Enemy
 
     // Animation
     #region
-    [SerializeField] private GameObject torsoPointGO;
-    [SerializeField] private Transform refTransform; 
+    [SerializeField] private GameObject mainPointGO;
     // On Hit Animation
     #region 
     private void OnHitAnimation(Vector2 magnitude)
@@ -142,21 +129,21 @@ public class Mannequin : Enemy
         // Hash Table
         #region 
         Hashtable onHitMannequinHash = new Hashtable();
-        onHitMannequinHash.Add("name", "Mannequin_" + torsoPointGO.gameObject.GetInstanceID() + "_OnHit");
+        onHitMannequinHash.Add("name", "Mannequin_" + mainPointGO.gameObject.GetInstanceID() + "_OnHit");
         onHitMannequinHash.Add("x", magnitude.x);
         onHitMannequinHash.Add("y", magnitude.y);
         onHitMannequinHash.Add("space", Space.Self);
         onHitMannequinHash.Add("time", 1f);
-        onHitMannequinHash.Add("oncomplete", "OnCompleteAnimation_Mannequin");
+        onHitMannequinHash.Add("oncomplete", "OnCompleteAnimation_Slime");
         onHitMannequinHash.Add("oncompletetarget", this.gameObject);
 
         #endregion
 
-        iTween.PunchPosition(torsoPointGO, onHitMannequinHash);
+        iTween.PunchPosition(mainPointGO, onHitMannequinHash);
 
     }
 
-    private void OnCompleteAnimation_Mannequin()
+    private void OnCompleteAnimation_Slime()
     {
         isCooldown = false;
         CheckHealth();
@@ -165,7 +152,7 @@ public class Mannequin : Enemy
 
     #endregion
 
-    public void OnHitMannequin(Vector2 magnitude)
+    public void OnHitSlime(Vector2 magnitude)
     {
         if (isCooldown) { return; }
         OnHitAnimation(magnitude);
@@ -178,5 +165,4 @@ public class Mannequin : Enemy
         base.Awake();
 
     }
-    
 }
