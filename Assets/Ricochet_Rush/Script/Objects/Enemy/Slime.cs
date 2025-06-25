@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 
 public class Slime : Enemy
-{   
+{
     // Valuable
     #region 
     public override void SetValuable()
@@ -117,6 +117,14 @@ public class Slime : Enemy
 
     #endregion
 
+    // On Action Handler
+    #region 
+    public override void OnActionHandler(int value)
+    {
+        base.OnActionHandler(value);
+    }
+    #endregion
+
     // Animation
     #region
     [SerializeField] private GameObject mainPointGO;
@@ -165,4 +173,10 @@ public class Slime : Enemy
         base.Awake();
 
     }
+
+    public override void Start()
+    {
+        base.Start();
+    }
+    
 }

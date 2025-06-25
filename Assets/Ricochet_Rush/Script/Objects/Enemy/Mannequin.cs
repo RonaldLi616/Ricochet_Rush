@@ -129,10 +129,18 @@ public class Mannequin : Enemy
 
     #endregion
 
+    // On Action Handler
+    #region 
+    public override void OnActionHandler(int value)
+    {
+        base.OnActionHandler(value);
+    }
+    #endregion
+
     // Animation
     #region
     [SerializeField] private GameObject torsoPointGO;
-    [SerializeField] private Transform refTransform; 
+    [SerializeField] private Transform refTransform;
     // On Hit Animation
     #region 
     private void OnHitAnimation(Vector2 magnitude)
@@ -177,6 +185,11 @@ public class Mannequin : Enemy
     {
         base.Awake();
 
+    }
+
+    public override void Start()
+    {
+        base.Start();
     }
     
 }
