@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Quest_Studio;
 
-[RequireComponent(typeof(RectTransform))]
+[RequireComponent(typeof(RawImage))]
 [ExecuteAlways]
 public class CardHolder_Handle : DraggableObject
 {
@@ -16,10 +17,16 @@ public class CardHolder_Handle : DraggableObject
     [SerializeField] private RectTransform topRT;
     private void SetReferencePoint()
     {
-        topRT.anchorMin = cardHolderGroupRT.anchorMin;
-        topRT.anchorMax = cardHolderGroupRT.anchorMax;
-        bottomRT.anchorMin = cardHolderGroupRT.anchorMin;
-        bottomRT.anchorMax = cardHolderGroupRT.anchorMax;
+        if (cardHolderHandleRT == null)
+        {
+            Debug.Log("Missing Card Holder RectTransform Reference!");
+            return;
+        }
+
+        topRT.anchorMin = cardHolderHandleRT.anchorMin;
+        topRT.anchorMax = cardHolderHandleRT.anchorMax;
+        bottomRT.anchorMin = cardHolderHandleRT.anchorMin;
+        bottomRT.anchorMax = cardHolderHandleRT.anchorMax;
     }
     #endregion
 
@@ -29,14 +36,26 @@ public class CardHolder_Handle : DraggableObject
     {
         base.SetComponent();
 
-        SetCardHolderGroupRT();
+        SetCardHolderHandleRT();
+        SetCardHolderHandleRI();
+        SetHandleTransparent(true);
         SetReferencePoint();
     }
 
     // Card Holder Rect Transform
     #region 
-    private RectTransform cardHolderGroupRT;
-    private void SetCardHolderGroupRT() { cardHolderGroupRT = this.GetComponent<RectTransform>(); }
+    private RectTransform cardHolderHandleRT;
+    private void SetCardHolderHandleRT() { cardHolderHandleRT = this.transform.parent.GetComponent<RectTransform>(); }
+    #endregion
+
+    // Card Holder Raw Image
+    #region 
+    [Header("Handle Image")]
+    [SerializeField] private Texture2D handle_Normal;
+    [SerializeField] private Texture2D handle_Transparent;
+    private RawImage cardHolderHandleRI;
+    private void SetCardHolderHandleRI() { cardHolderHandleRI = this.transform.GetComponent<RawImage>(); }
+    private void SetHandleTransparent(bool isTransparent){ cardHolderHandleRI.texture = isTransparent ? handle_Transparent : handle_Normal; }
     #endregion
 
     #endregion
@@ -56,7 +75,7 @@ public class CardHolder_Handle : DraggableObject
         Vector2 inRangePosition = canvas.transform.InverseTransformPoint(followPosition);
         if (inRangePosition.y >= min.y && inRangePosition.y < max.y)
         {
-            this.transform.position = new Vector3(this.transform.position.x, followPosition.y, 0f);
+            this.transform.parent.transform.position = new Vector3(this.transform.position.x, followPosition.y, 0f);
         }
     }
     #endregion
@@ -70,6 +89,7 @@ public class CardHolder_Handle : DraggableObject
         GetImage().raycastTarget = false;
         #endregion
 
+        SetHandleTransparent(false);
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -84,6 +104,7 @@ public class CardHolder_Handle : DraggableObject
         GetImage().raycastTarget = true;
         #endregion
 
+        SetHandleTransparent(true);
     }
 
     #endregion
